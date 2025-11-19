@@ -1,4 +1,5 @@
 import { defineConfig, loadEnv } from 'vite';
+import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite';
 
@@ -11,6 +12,12 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [vue(), tailwindcss()],
         base: '/vue-chat-ai-ui/',
+        resolve: {
+            alias: {
+                '@': resolve(__dirname, 'src'),
+                '#root': resolve(__dirname)
+            }
+        },
         server: {
             proxy: {
                 '/api': {
