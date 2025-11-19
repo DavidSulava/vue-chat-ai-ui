@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     // Use the loaded variables in your config
     return {
         plugins: [vue(), tailwindcss()],
-        base: '/vue-chat-ai-ui',
+        base: '/vue-chat-ai-ui/',
         server: {
             proxy: {
                 '/api': {
