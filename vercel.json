@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" },
     { "source": "/api/(.*)", "destination": "https://node-chat-ai-api.onrender.com/$1" }
   ]
 }
