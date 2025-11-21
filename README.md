@@ -5,6 +5,7 @@ This is the frontend for the Chat AI application. It is a **Vue.js 3** applicati
 <img src="./src/assets/screen.png" />
 
 The Express backend API for this application can be found [here](https://github.com/DavidSulava/node-chat-ai-api).
+<br/>
 Working demo is [here](https://vue-chat-ai-ui.vercel.app/).
 
 ## Installation
