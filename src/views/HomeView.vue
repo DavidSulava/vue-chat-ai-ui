@@ -77,6 +77,7 @@ const createUser = async () => {
       </button>
 
       <p v-if="error" class="text-red-400 text-center mt-2">{{ error }}</p>
+      <p v-if="loading" class="text-green-400 text-center mt-2">the server is waking up...</p>
     </div>
   </div>
 </template>
