@@ -66,7 +66,11 @@ const createUser = async () => {
 
       <button
         @click="createUser"
-        class="w-full p-2 bg-blue-500 rounded-lg cursor-pointer"
+        class="w-full p-2 bg-blue-500 rounded-lg"
+        :class="{
+          'opacity-50 cursor-not-allowed': loading,
+          'cursor-pointer': !loading,
+        }"
         :disabled="loading"
       >
         {{ loading ? 'Logging in...' : 'Start Chat' }}
