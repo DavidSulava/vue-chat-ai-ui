@@ -19,10 +19,11 @@
 
 ## 🛠 Технологический стек
 
-![Vue.js](https://shields.io)
-![Vite](https://shields.io)
-![PostgreSQL](https://shields.io)
-![Gemini](https://shields.io)
+*   🟢 **Vue.js 3** — Core Framework
+*   ⚡ **Vite** — Build Tool
+*   🐘 **PostgreSQL (Neon)** — Database
+*   ✨ **Google Gemini** — AI Engine
+*   💬 **Stream Chat** — Messaging API
 
 ## 🚀 Быстрый старт
 

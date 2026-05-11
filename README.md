@@ -20,10 +20,12 @@ A modern, responsive frontend for the Chat AI application. Built with **Vue.js 3
 
 ## 🛠 Tech Stack
 
-![Vue.js](https://shields.io)
-![Vite](https://shields.io)
-![PostgreSQL](https://shields.io)
-![Gemini](https://shields.io)
+*   🟢 **Vue.js 3** — Core Framework
+*   ⚡ **Vite** — Build Tool
+*   🐘 **PostgreSQL (Neon)** — Database
+*   ✨ **Google Gemini** — AI Engine
+*   💬 **Stream Chat** — Messaging API
+
 
 ## 🚀 Quick Start
 
