@@ -1,11 +1,10 @@
 # Chat AI UI
+Working demo is 👉[here](https://vue-chat-ai-ui.vercel.app/).
 
 This is the frontend for the Chat AI application. It is a **Vue.js 3** application that uses a custom API to interact with [Stream Chat](https://getstream.io), your own [Neon](https://neon.tech) PostgreSQL database and [Gemini](https://aistudio.google.com/).
 
 <img src="./src/assets/screen.png" />
 
-Working demo is 👉[here](https://vue-chat-ai-ui.vercel.app/).
-<br/>
 The Express backend API for this application can be found 👉[here](https://github.com/DavidSulava/node-chat-ai-api).
 
 ## Installation
