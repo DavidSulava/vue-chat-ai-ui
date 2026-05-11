@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import {onMounted, nextTick, watch} from 'vue';
+import { onMounted, nextTick, watch } from 'vue';
+import DOMPurify from 'dompurify';
 import { useUserStore } from '../stores/user';
 import { useChatStore } from '../stores/chat';
 import { useRouter } from 'vue-router';
@@ -15,11 +16,11 @@ if (!userStore.userId) {
   router.push('/');
 }
 
-// Format AI messages for better display
+// Format AI messages for better display with XSS protection
 const formatMessage = (text: string) => {
   if (!text) return '';
 
-  return text
+  const formatted = text
     .replace(/\n/g, '<br>') // Preserve line breaks
     .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Bold text
     .replace(/\*(.*?)\*/g, '<i>$1</i>') // Italic text
@@ -29,7 +30,14 @@ const formatMessage = (text: string) => {
     .replace(/<\/li>\n<li>/g, '</li><li>') // Ensure list continuity
     .replace(/<li>/, '<ul><li>') // Wrap in `<ul>`
     .replace(/<\/li>$/, '</li></ul>'); // Close the `<ul>`
+
+  // Sanitize HTML to prevent XSS attacks
+  return DOMPurify.sanitize(formatted, {
+    ALLOWED_TAGS: ['b', 'i', 'code', 'br', 'ul', 'li'],
+    ALLOWED_ATTR: [], // No attributes allowed
+  });
 };
+
 // Auto-scroll to bottom
 const scrollToBottom = () => {
   nextTick(() => {
@@ -40,7 +48,7 @@ const scrollToBottom = () => {
 
 watch(() => chatStore.messages.length, () => {
   scrollToBottom();
-})
+});
 
 onMounted(() => {
   chatStore.loadChatHistory().then(() => scrollToBottom());
@@ -77,8 +85,8 @@ onMounted(() => {
     </div>
 
     <ChatInput
-        @send="chatStore.sendMessage"
-        :loading="chatStore.isLoading"
+      @send="chatStore.sendMessage"
+      :loading="chatStore.isLoading"
     />
   </div>
 </template>

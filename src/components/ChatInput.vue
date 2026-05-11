@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch} from 'vue';
+import { ref } from 'vue';
 
 const emits = defineEmits(['send']);
 const props = defineProps({
@@ -10,9 +10,7 @@ const props = defineProps({
 });
 
 const message = ref('');
-watch(() => props.loading, () => {
-  console.log('loading', props.loading)
-})
+
 const sendMessage = () => {
   if (!message.value.trim()) return;
   emits('send', message.value);

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import axios from 'axios';
+import { api } from '../api/config';
 import { useUserStore } from './user';
 
 interface ChatMessage {
@@ -23,12 +23,9 @@ export const useChatStore = defineStore('chat', () => {
     if (!userStore.userId) return;
 
     try {
-      const { data } = await axios.post(
-          '/api/get-messages',
-        {
-          userId: userStore.userId,
-        }
-      );
+      const { data } = await api.post('/get-messages', {
+        userId: userStore.userId,
+      });
 
       messages.value = data.messages
         .flatMap((msg: ChatMessage): FormattedMessage[] => [
@@ -48,13 +45,10 @@ export const useChatStore = defineStore('chat', () => {
     isLoading.value = true;
 
     try {
-      const { data } = await axios.post(
-        '/api/chat',
-        {
-          message,
-          userId: userStore.userId,
-        }
-      );
+      const { data } = await api.post('/chat', {
+        message,
+        userId: userStore.userId,
+      });
 
       messages.value.push({ role: 'ai', content: data.reply });
     } catch (error) {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import axios from 'axios';
+import { api } from '../api/config';
 import { useUserStore } from '../stores/user';
 import { useRouter } from 'vue-router';
 import robotImage from '../assets/robot.png';
@@ -23,11 +23,10 @@ const createUser = async () => {
   error.value = '';
 
   try {
-    const { data } = await axios.post(
-  '/api/register-user',{
-        name: name.value,
-        email: email.value,
-      });
+    const { data } = await api.post('/register-user', {
+      name: name.value,
+      email: email.value,
+    });
 
     userStore.setUser({
       userId: data.userId,
@@ -35,8 +34,14 @@ const createUser = async () => {
     });
 
     router.push('/chat');
-  } catch (err) {
-    error.value = 'Something went wrong. Please try again';
+  } catch (err: any) {
+    if (err.response?.data?.error) {
+      error.value = err.response.data.error;
+    } else if (err.message) {
+      error.value = err.message;
+    } else {
+      error.value = 'Something went wrong. Please try again';
+    }
   } finally {
     loading.value = false;
   }
