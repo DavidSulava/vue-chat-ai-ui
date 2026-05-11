@@ -64,5 +64,5 @@ The optimized output will be available in the `dist/` directory.
 
 ## 🔗 Related Projects
 This frontend requires the **Node.js Express Backend** to function.
-👉 [Find the Backend API here](https://github.com)
+👉 [Find the Backend API here](https://github.com/DavidSulava/node-chat-ai-api)
 

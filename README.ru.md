@@ -62,4 +62,4 @@ npm run build
 
 ## 🔗 Связанные проекты
 Для работы этого фронтенда необходим **Node.js Express Backend**.
-👉 [Ссылка на API бэкенда](https://github.com)
+👉 [Ссылка на API бэкенда](https://github.com/DavidSulava/node-chat-ai-api)
