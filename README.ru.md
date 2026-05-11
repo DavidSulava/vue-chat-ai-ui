@@ -1,7 +1,7 @@
 # 🤖 Chat AI UI
 [English](README.md) | [Русский](README.ru.md)
 
-🚀 [Демо-версия](https://vue-chat-ai-ui.vercel.app/)
+<a href="https://vue-chat-ai-ui.vercel.app/" target="_blank">🚀 Демо-версия</a>
 
 Современный и отзывчивый интерфейс для приложения Chat AI. Это приложение на **Vue.js 3**, которое обеспечивает удобное взаимодействие с Gemini AI, используя Stream Chat для обмена сообщениями в реальном времени и Neon PostgreSQL для хранения данных.
 
@@ -62,4 +62,4 @@ npm run build
 
 ## 🔗 Связанные проекты
 Для работы этого фронтенда необходим **Node.js Express Backend**.
-👉 [Ссылка на API бэкенда](https://github.com/DavidSulava/node-chat-ai-api)
+<a href="https://github.com/DavidSulava/node-chat-ai-api" target="_blank">👉 Ссылка на API бэкенда</a>

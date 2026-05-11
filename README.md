@@ -2,7 +2,7 @@
 
 [English](README.md) | [Русский](README.ru.md) 
 
-🚀 [Live Demo](https://vue-chat-ai-ui.vercel.app/)
+<a href="https://vue-chat-ai-ui.vercel.app/" target="_blank">🚀 Live Demo</a>
 
 A modern, responsive frontend for the Chat AI application. Built with **Vue.js 3**, it provides a seamless interface for interacting with Gemini AI, powered by Stream Chat for real-time messaging and Neon PostgreSQL for data persistence.
 
@@ -64,5 +64,5 @@ The optimized output will be available in the `dist/` directory.
 
 ## 🔗 Related Projects
 This frontend requires the **Node.js Express Backend** to function.
-👉 [Find the Backend API here](https://github.com/DavidSulava/node-chat-ai-api)
+<a href="https://github.com/DavidSulava/node-chat-ai-api" target="_blank">👉 Find the Backend API here</a>
 
