@@ -1,38 +1,66 @@
-# Chat AI UI
-Working demo is 👉[here](https://vue-chat-ai-ui.vercel.app/).
+# 🤖 Chat AI UI
 
-This is the frontend for the Chat AI application. It is a **Vue.js 3** application that uses a custom API to interact with [Stream Chat](https://getstream.io), your own [Neon](https://neon.tech) PostgreSQL database and [Gemini](https://aistudio.google.com/).
+[English](README.md) | [Русский](README.ru.md) 
 
-<img src="./src/assets/screen.png" />
+🚀 [Live Demo](https://vue-chat-ai-ui.vercel.app/)
 
-The Express backend API for this application can be found 👉[here](https://github.com/DavidSulava/node-chat-ai-api).
+A modern, responsive frontend for the Chat AI application. Built with **Vue.js 3**, it provides a seamless interface for interacting with Gemini AI, powered by Stream Chat for real-time messaging and Neon PostgreSQL for data persistence.
 
-## Installation
+![Application Screenshot](./src/assets/screen.png)
 
-1. Clone the repository
-2. Run `npm install`
-3. Create a `.env` file in the root directory and add the following environment variables:
+## ✨ Features
 
+- 💬 **Real-time Messaging**: Powered by Stream Chat API.
+- 🧠 **AI Integration**: Deep integration with Google Gemini for intelligent responses.
+- ⚡ **Performance**: Built with Vue 3 and Vite for lightning-fast load times.
+- 🛡️ **Security First**:
+    - XSS Protection using DOMPurify.
+    - Secure environment-based API routing.
+    - Robust error handling for network requests.
+
+## 🛠 Tech Stack
+
+![Vue.js](https://shields.io)
+![Vite](https://shields.io)
+![PostgreSQL](https://shields.io)
+![Gemini](https://shields.io)
+
+## 🚀 Quick Start
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com
+cd vue-chat-ai-ui
 ```
-# For development (uses Vite proxy)
+
+### 2. Install Dependencies
+```bash
+npm install
+```
+
+### 3. Environment Setup
+Create a `.env` file in the root directory:
+```env
+# Development
 VITE_API_URL=http://localhost:3000
 
-# For production (full URL required)
+# Production
 VITE_API_URL=https://your-api-domain.com
 ```
 
-4. Run the server with `npm run dev` and open on `http://localhost:3000`
+### 4. Run Development Server
+```bash
+npm run dev
+```
 
-## Security Features
-
-- ✅ **XSS Protection**: All user-generated content is sanitized using DOMPurify before rendering
-- ✅ **API Error Handling**: Network errors are caught and displayed with user-friendly messages
-- ✅ **Environment-based API URL**: Automatic switching between dev/prod API endpoints
-
-## Build for Production
+## 🏗 Build for Production
 
 ```bash
 npm run build
 ```
+The optimized output will be available in the `dist/` directory.
 
-The build output will be in the `dist/` directory.
+## 🔗 Related Projects
+This frontend requires the **Node.js Express Backend** to function.
+👉 [Find the Backend API here](https://github.com)
+
