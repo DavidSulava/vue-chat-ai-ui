@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import { api } from '../api/config';
 import { useUserStore } from '../stores/user';
 import { useRouter } from 'vue-router';
@@ -13,7 +13,10 @@ const email = ref('');
 const loading = ref(false);
 const error = ref('');
 
-const createUser = async () => {
+function goToChat() {
+  router.push('/chat');
+};
+async function createUser () {
   if (!name.value || !email.value) {
     error.value = 'Name and email are required';
     return;
@@ -33,7 +36,7 @@ const createUser = async () => {
       name: data.name,
     });
 
-    router.push('/chat');
+    goToChat();
   } catch (err: any) {
     if (err.response?.data?.error) {
       error.value = err.response.data.error;
@@ -46,6 +49,12 @@ const createUser = async () => {
     loading.value = false;
   }
 };
+
+onMounted(() => {
+  if (userStore.userId) {
+    goToChat();
+  }
+});
 </script>
 
 <template>

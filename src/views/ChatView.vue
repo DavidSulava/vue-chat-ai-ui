@@ -15,7 +15,6 @@ const router = useRouter();
 if (!userStore.userId) {
   router.push('/');
 }
-
 // Format AI messages for better display with XSS protection
 const formatMessage = (text: string) => {
   if (!text) return '';
@@ -37,7 +36,6 @@ const formatMessage = (text: string) => {
     ALLOWED_ATTR: [], // No attributes allowed
   });
 };
-
 // Auto-scroll to bottom
 const scrollToBottom = () => {
   nextTick(() => {
