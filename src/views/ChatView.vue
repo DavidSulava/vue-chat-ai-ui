@@ -13,7 +13,7 @@ const router = useRouter();
 
 // Ensure user is logged in
 if (!userStore.userId) {
-  router.push('/');
+  router.push({name: 'login'});
 }
 // Format AI messages for better display with XSS protection
 const formatMessage = (text: string) => {

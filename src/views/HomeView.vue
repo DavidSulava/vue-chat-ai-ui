@@ -14,7 +14,7 @@ const loading = ref(false);
 const error = ref('');
 
 function goToChat() {
-  router.push('/chat');
+  router.push({name: 'chat'});
 };
 async function createUser () {
   if (!name.value || !email.value) {
