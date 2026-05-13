@@ -1,20 +1,11 @@
 <script setup lang="ts">
 import { onMounted, nextTick, watch } from 'vue';
 import DOMPurify from 'dompurify';
-import { useUserStore } from '../stores/user';
 import { useChatStore } from '../stores/chat';
-import { useRouter } from 'vue-router';
 import Header from '../components/Header.vue';
 import ChatInput from '../components/ChatInput.vue';
 
-const userStore = useUserStore();
 const chatStore = useChatStore();
-const router = useRouter();
-
-// Ensure user is logged in
-if (!userStore.userId) {
-  router.push({name: 'login'});
-}
 // Format AI messages for better display with XSS protection
 const formatMessage = (text: string) => {
   if (!text) return '';
