@@ -17,7 +17,7 @@ router.beforeEach((to) => {
   const userStore = useUserStore();
   const isAuthenticated = !!userStore.userId;
 
-  if (to.name === 'chat' && !isAuthenticated) {
+  if (!isAuthenticated && to.name !== 'login') {
     return { name: 'login' };
   }
 
