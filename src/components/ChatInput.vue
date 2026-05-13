@@ -10,17 +10,13 @@ const props = defineProps({
 });
 
 const message = ref('');
-let timeoutId: ReturnType<typeof setTimeout> = 0;
 
 const sendMessage = () => {
-  clearTimeout(timeoutId);
 
   if (!message.value.trim()) return;
 
-  timeoutId = setTimeout(() => {
-    emits('send', message.value);
-    message.value = '';
-  }, 500);
+  emits('send', message.value);
+  message.value = '';
 };
 </script>
 
