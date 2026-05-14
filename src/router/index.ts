@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import ChatView from '../views/ChatView.vue';
+import type { RouteLocationRaw } from 'vue-router';
 import {useUserStore} from "../stores/user.ts";
+
+const HomeView = () => import('../views/HomeView.vue');
+const ChatView = () => import('../views/ChatView.vue');
 
 const routes = [
   { path: '/', name: 'login', component: HomeView },
@@ -18,7 +20,7 @@ router.beforeEach((to) => {
   const isAuthenticated = !!userStore.userId;
 
   if (!isAuthenticated && to.name !== 'login') {
-    return { name: 'login' };
+    return { name: 'login' } as RouteLocationRaw;
   }
 
   return true;
