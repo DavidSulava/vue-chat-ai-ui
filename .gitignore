@@ -24,3 +24,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# GitNexus & AI context files
+AGENTS.md
+CLAUDE.md
+.claude/
