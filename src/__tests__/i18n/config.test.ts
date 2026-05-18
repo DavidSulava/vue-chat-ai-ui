@@ -1,11 +1,9 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { createI18n } from 'vue-i18n'
-import en from '../../i18n/locales/en'
-import ru from '../../i18n/locales/ru'
 import {
   DEFAULT_LOCALE,
   FALLBACK_LOCALE,
-  isValidLocale
+  isValidLocale,
+  LOCALE_CODES
 } from '../../i18n/config'
 
 describe('i18n configuration', () => {
@@ -13,64 +11,52 @@ describe('i18n configuration', () => {
     localStorage.clear()
   })
 
-  it('uses ru as default locale when localStorage is empty', () => {
+  it('uses en as default locale when localStorage is empty', async () => {
     vi.resetModules()
-    const i18n = createI18n({
-      legacy: false,
-      locale: DEFAULT_LOCALE,
-      fallbackLocale: FALLBACK_LOCALE,
-      messages: { en, ru }
-    })
+    const { default: i18n } = await import('../../i18n')
+    expect(i18n.global.locale.value).toBe('en')
+  })
+
+  it('uses saved locale from localStorage when valid', async () => {
+    localStorage.setItem('locale', 'en')
+    vi.resetModules()
+    const { default: i18n } = await import('../../i18n')
+    expect(i18n.global.locale.value).toBe('en')
+  })
+
+  it('falls back to en when localStorage has invalid locale', async () => {
+    localStorage.setItem('locale', 'fr')
+    vi.resetModules()
+    const { default: i18n } = await import('../../i18n')
     expect(i18n.global.locale.value).toBe(DEFAULT_LOCALE)
   })
 
-  it('uses saved locale from localStorage when valid', () => {
-    localStorage.setItem('locale', 'en')
-    const savedLocale = localStorage.getItem('locale')
-    const defaultLocale = isValidLocale(savedLocale || '')
-      ? savedLocale!
-      : DEFAULT_LOCALE
-    expect(defaultLocale).toBe('en')
-  })
-
-  it('falls back to ru when localStorage has invalid locale', () => {
-    localStorage.setItem('locale', 'fr')
-    const savedLocale = localStorage.getItem('locale')
-    const defaultLocale = isValidLocale(savedLocale || '')
-      ? savedLocale!
-      : DEFAULT_LOCALE
-    expect(defaultLocale).toBe(DEFAULT_LOCALE)
-  })
-
-  it('uses en as fallback locale', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: DEFAULT_LOCALE,
-      fallbackLocale: FALLBACK_LOCALE,
-      messages: { en, ru }
-    })
+  it('has fallbackLocale set to en', async () => {
+    vi.resetModules()
+    const { default: i18n } = await import('../../i18n')
     expect(i18n.global.fallbackLocale.value).toBe(FALLBACK_LOCALE)
   })
 
-  it('has legacy mode disabled', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: DEFAULT_LOCALE,
-      fallbackLocale: FALLBACK_LOCALE,
-      messages: { en, ru }
-    })
-    expect(i18n.global.locale).toBeDefined()
+  it('has legacy mode disabled', async () => {
+    vi.resetModules()
+    const { default: i18n } = await import('../../i18n')
+    expect(i18n.global.locale).toHaveProperty('value')
   })
 
-  it('saves locale change to localStorage', () => {
-    const i18n = createI18n({
-      legacy: false,
-      locale: DEFAULT_LOCALE,
-      fallbackLocale: FALLBACK_LOCALE,
-      messages: { en, ru }
-    })
-    i18n.global.locale.value = 'en'
-    localStorage.setItem('locale', i18n.global.locale.value)
-    expect(localStorage.getItem('locale')).toBe('en')
+  it('isValidLocale returns true for valid locales', () => {
+    expect(isValidLocale('en')).toBe(true)
+    expect(isValidLocale('ru')).toBe(true)
+  })
+
+  it('isValidLocale returns false for invalid locales', () => {
+    expect(isValidLocale('fr')).toBe(false)
+    expect(isValidLocale('')).toBe(false)
+    expect(isValidLocale('invalid')).toBe(false)
+  })
+
+  it('LOCALE_CODES contains all supported locales', () => {
+    expect(LOCALE_CODES).toContain('en')
+    expect(LOCALE_CODES).toContain('ru')
+    expect(LOCALE_CODES).toHaveLength(2)
   })
 })
