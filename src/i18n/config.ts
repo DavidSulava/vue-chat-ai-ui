@@ -21,7 +21,7 @@ export const LOCALES: LocaleConfig[] = [
 ]
 
 export const LOCALE_CODES = LOCALES.map((l) => l.code)
-export const DEFAULT_LOCALE = 'ru'
+export const DEFAULT_LOCALE = 'en'
 export const FALLBACK_LOCALE = 'en'
 
 export function isValidLocale(code: string): boolean {
