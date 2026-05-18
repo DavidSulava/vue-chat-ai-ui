@@ -1,10 +1,11 @@
 import en from './locales/en'
 import ru from './locales/ru'
 
+type LocaleMessages = typeof en
 export interface LocaleConfig {
   code: string
   label: string
-  messages: typeof en
+  messages: LocaleMessages
 }
 
 export const LOCALES: LocaleConfig[] = [
@@ -20,17 +21,16 @@ export const LOCALES: LocaleConfig[] = [
   }
 ]
 
-export const LOCALE_CODES = LOCALES.map((l) => l.code)
-export const DEFAULT_LOCALE = 'en'
-export const FALLBACK_LOCALE = 'en'
+export const LOCALE_CODES = LOCALES.map((l) => l.code) as string[]
+export const DEFAULT_LOCALE = LOCALES[0].code
+export const FALLBACK_LOCALE = DEFAULT_LOCALE
 
-export function isValidLocale(code: string): boolean {
+export function isValidLocale(
+  code: string
+): code is (typeof LOCALE_CODES)[number] {
   return LOCALE_CODES.includes(code)
 }
 
-export function buildMessages(): Record<string, typeof en> {
-  return LOCALES.reduce<Record<string, typeof en>>((acc, locale) => {
-    acc[locale.code] = locale.messages
-    return acc
-  }, {})
-}
+export const MESSAGES: Record<string, LocaleMessages> = Object.fromEntries(
+  LOCALES.map((l) => [l.code, l.messages])
+)

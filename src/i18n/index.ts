@@ -4,19 +4,18 @@ import {
   DEFAULT_LOCALE,
   FALLBACK_LOCALE,
   isValidLocale,
-  buildMessages
+  MESSAGES
 } from './config'
 
 const savedLocale = localStorage.getItem('locale')
-const defaultLocale = isValidLocale(savedLocale || '')
-  ? savedLocale!
-  : DEFAULT_LOCALE
+const defaultLocale =
+  savedLocale && isValidLocale(savedLocale) ? savedLocale : DEFAULT_LOCALE
 
 const i18n = createI18n({
   legacy: false,
   locale: defaultLocale,
   fallbackLocale: FALLBACK_LOCALE,
-  messages: buildMessages()
+  messages: MESSAGES
 })
 
 export default i18n
