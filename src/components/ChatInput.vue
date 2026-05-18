@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import {CHAT_INPUT_HEIGHT} from "../constants";
 
 const { t } = useI18n()
 
@@ -23,7 +24,10 @@ const sendMessage = () => {
 </script>
 
 <template>
-  <div class="p-4 bg-gray-800 flex">
+  <div
+      class="p-4 bg-gray-800 flex"
+      :style="{height: `${CHAT_INPUT_HEIGHT}px`}"
+  >
     <input
       v-model="message"
       :placeholder="t('chat.sendMessage')"

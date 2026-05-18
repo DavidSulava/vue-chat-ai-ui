@@ -3,12 +3,22 @@ import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
 import { useChatStore } from '../stores/chat'
 import ChatInput from '../components/ChatInput.vue'
-import { onMounted, ref, nextTick } from 'vue'
+import {onMounted, ref, nextTick, watch} from 'vue'
+import {CHAT_INPUT_HEIGHT, NAVBAR_HEIGHT} from '../constants';
 
 const { t } = useI18n()
 const chatStore = useChatStore()
 const chatContainer = ref<HTMLElement>()
 
+watch(() => chatContainer.value, () => {
+  setChatContainerHeight()
+}, { once: true })
+
+const setChatContainerHeight = () => {
+  if (chatContainer.value) {
+    chatContainer.value.style.height =  `calc(100vh - ${(NAVBAR_HEIGHT + CHAT_INPUT_HEIGHT)}px)`;
+  }
+}
 const formatMessage = (text: string) => {
   if (!text) return ''
 
@@ -53,9 +63,8 @@ onMounted(async () => {
 <template>
   <div class="flex flex-col h-screen text-white">
     <div
-      id="chat-container"
       ref="chatContainer"
-      class="flex-1 p-4 space-y-4 bg-gray-900 overflow-y-scroll"
+      class="p-4 space-y-4 bg-gray-900 overflow-y-scroll"
     >
       <div
         v-for="msg in chatStore.messages"
@@ -73,7 +82,7 @@ onMounted(async () => {
           v-html="formatMessage(msg.content)"
         ></div>
       </div>
-      <div class="flex justify-start">
+      <div v-if="chatStore.isLoading" class="flex justify-start">
         <div class="bg-gray-700 text-white px-4 py-2 rounded-lg">
           <span class="animate-pulse">{{ t('chat.aiThinking') }}</span>
         </div>

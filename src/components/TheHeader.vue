@@ -5,6 +5,7 @@ import { useUserStore } from '../stores/user'
 import { useRouter } from 'vue-router'
 import robotImage from '../assets/robot.png'
 import { LOCALES } from '../i18n/config'
+import {NAVBAR_HEIGHT} from '../constants'
 
 const { t, locale } = useI18n()
 const userStore = useUserStore()
@@ -26,6 +27,7 @@ const logout = () => {
 <template>
   <div
     class="py-4 px-6 bg-gray-800 shadow-md flex justify-between items-center"
+    :style="{height: `${NAVBAR_HEIGHT}px`}"
   >
     <div class="flex items-center gap-3">
       <img :src="robotImage" alt="Chat AI" class="w-8 h-8" />
