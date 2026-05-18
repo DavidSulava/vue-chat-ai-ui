@@ -37,11 +37,12 @@ async function createUser () {
     });
 
     goToChat();
-  } catch (err: any) {
-    if (err.response?.data?.error) {
-      error.value = err.response.data.error;
-    } else if (err.message) {
-      error.value = err.message;
+  } catch (err: unknown) {
+    const axiosError = err as { response?: { data?: { error?: string } }; message?: string };
+    if (axiosError.response?.data?.error) {
+      error.value = axiosError.response.data.error;
+    } else if (axiosError.message) {
+      error.value = axiosError.message;
     } else {
       error.value = 'Something went wrong. Please try again';
     }
