@@ -40,10 +40,12 @@ async function createUser() {
     goToChat()
   } catch (err: unknown) {
     const axiosError = err as {
-      response?: { data?: { error?: string } }
+      response?: { data?: { message?: string; error?: string } }
       message?: string
     }
-    if (axiosError.response?.data?.error) {
+    if (axiosError.response?.data?.message) {
+      error.value = axiosError.response.data.message
+    } else if (axiosError.response?.data?.error) {
       error.value = axiosError.response.data.error
     } else if (axiosError.message) {
       error.value = axiosError.message
