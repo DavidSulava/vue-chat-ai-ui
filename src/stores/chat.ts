@@ -1,58 +1,53 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { api } from '../api/config';
+import { chatService } from '../services/chatService';
 import { useUserStore } from './user';
-
-interface ChatMessage {
-  message: string;
-  reply: string;
-}
-
-interface FormattedMessage {
-  role: 'user' | 'ai';
-  content: string;
-}
+import type { FormattedMessage } from '../types';
 
 export const useChatStore = defineStore('chat', () => {
   const messages = ref<FormattedMessage[]>([]);
   const isLoading = ref(false);
+  const error = ref<string | null>(null);
 
   const userStore = useUserStore();
-  // Load previous chat messages
+
   const loadChatHistory = async () => {
     if (!userStore.userId) return;
 
     try {
-      const { data } = await api.post('/get-messages', {
-        userId: userStore.userId,
-      });
+      const response = await chatService.getMessages({ userId: userStore.userId });
 
-      messages.value = data.messages
-        .flatMap((msg: ChatMessage): FormattedMessage[] => [
-          { role: 'user', content: msg.message },
-          { role: 'ai', content: msg.reply },
+      messages.value = response.messages
+        .flatMap((msg) => [
+          { role: 'user' as const, content: msg.message },
+          { role: 'ai' as const, content: msg.reply },
         ])
-        .filter((msg: FormattedMessage) => msg.content);
-    } catch (error) {
-      console.error('Error loading chat history: ', error);
+        .filter((msg) => msg.content);
+
+      error.value = null;
+    } catch (err) {
+      console.error('Error loading chat history: ', err);
+      error.value = 'Failed to load chat history';
     }
   };
-  // Send new message to AI
+
   const sendMessage = async (message: string) => {
     if (!message.trim() || !userStore.userId) return;
 
     messages.value.push({ role: 'user', content: message });
     isLoading.value = true;
+    error.value = null;
 
     try {
-      const { data } = await api.post('/chat', {
+      const response = await chatService.sendMessage({
         message,
         userId: userStore.userId,
       });
 
-      messages.value.push({ role: 'ai', content: data.reply });
-    } catch (error) {
-      console.error('Error sending message: ', error);
+      messages.value.push({ role: 'ai', content: response.reply });
+    } catch (err) {
+      console.error('Error sending message: ', err);
+      error.value = 'Failed to send message';
       messages.value.push({
         role: 'ai',
         content: 'Error: unable to process request',
@@ -62,5 +57,5 @@ export const useChatStore = defineStore('chat', () => {
     }
   };
 
-  return { messages, isLoading, loadChatHistory, sendMessage };
+  return { messages, isLoading, error, loadChatHistory, sendMessage };
 });

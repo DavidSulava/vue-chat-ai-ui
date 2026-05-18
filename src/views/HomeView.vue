@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue';
-import { api } from '../api/config';
+import { onMounted, ref } from 'vue';
+import { userService } from '../services/userService';
 import { useUserStore } from '../stores/user';
 import { useRouter } from 'vue-router';
 import robotImage from '../assets/robot.png';
@@ -14,9 +14,10 @@ const loading = ref(false);
 const error = ref('');
 
 function goToChat() {
-  router.push({name: 'chat'});
-};
-async function createUser () {
+  router.push({ name: 'chat' });
+}
+
+async function createUser() {
   if (!name.value || !email.value) {
     error.value = 'Name and email are required';
     return;
@@ -26,14 +27,14 @@ async function createUser () {
   error.value = '';
 
   try {
-    const { data } = await api.post('/register-user', {
+    const response = await userService.registerUser({
       name: name.value,
       email: email.value,
     });
 
     userStore.setUser({
-      userId: data.userId,
-      name: data.name,
+      userId: response.userId,
+      name: response.name,
     });
 
     goToChat();
@@ -49,7 +50,7 @@ async function createUser () {
   } finally {
     loading.value = false;
   }
-};
+}
 
 onMounted(() => {
   if (userStore.userId) {
