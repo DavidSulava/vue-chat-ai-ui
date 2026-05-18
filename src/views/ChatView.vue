@@ -28,7 +28,6 @@ const formatMessage = (text: string) => {
     ALLOWED_ATTR: []
   })
 }
-
 const scrollToBottom = async () => {
   await nextTick(() => {
     chatContainer.value?.scrollTo({
@@ -37,9 +36,17 @@ const scrollToBottom = async () => {
     })
   })
 }
+const getLoadChatHistory = async () => {
+  try {
+    chatStore.isLoading = true
+    await chatStore.loadChatHistory()
+  } finally {
+    chatStore.isLoading = false
+  }
+}
 
 onMounted(async () => {
-  chatStore.loadChatHistory().then(scrollToBottom)
+  getLoadChatHistory().then(scrollToBottom)
 })
 </script>
 
