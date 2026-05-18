@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { onMounted, nextTick, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
 import { useChatStore } from '../stores/chat'
 import ChatInput from '../components/ChatInput.vue'
+import {onMounted, ref, nextTick} from "vue";
 
 const { t } = useI18n()
 const chatStore = useChatStore()
+const chatContainer = ref<HTMLElement>()
+
 const formatMessage = (text: string) => {
   if (!text) return ''
 
@@ -26,28 +28,24 @@ const formatMessage = (text: string) => {
     ALLOWED_ATTR: []
   })
 }
-const scrollToBottom = () => {
-  nextTick(() => {
-    const chatContainer = document.getElementById('chat-container')
-    if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight
+
+const scrollToBottom = async () => {
+  await nextTick(() => {
+    chatContainer.value?.scrollTo({
+      top: chatContainer.value.scrollHeight,
+      behavior: 'smooth'
+    })
   })
 }
 
-watch(
-  () => chatStore.messages.length,
-  () => {
-    scrollToBottom()
-  }
-)
-
-onMounted(() => {
-  chatStore.loadChatHistory().then(() => scrollToBottom())
-})
+onMounted(async () => {
+  chatStore.loadChatHistory().then(scrollToBottom)
+});
 </script>
 
 <template>
-  <div class="flex flex-col h-screen  text-white">
-    <div id="chat-container" class="flex-1 p-4 space-y-4 bg-gray-900">
+  <div class="flex flex-col h-screen text-white">
+    <div id="chat-container" ref="chatContainer" class="flex-1 p-4 space-y-4 bg-gray-900 overflow-y-scroll">
       <div
         v-for="msg in chatStore.messages"
         :key="msg.id"
@@ -64,7 +62,7 @@ onMounted(() => {
           v-html="formatMessage(msg.content)"
         ></div>
       </div>
-      <div v-if="chatStore.isLoading" class="flex justify-start">
+      <div class="flex justify-start">
         <div class="bg-gray-700 text-white px-4 py-2 rounded-lg">
           <span class="animate-pulse">{{ t('chat.aiThinking') }}</span>
         </div>
