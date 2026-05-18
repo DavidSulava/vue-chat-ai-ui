@@ -40,7 +40,7 @@ describe('i18n configuration', () => {
   it('has legacy mode disabled', async () => {
     vi.resetModules()
     const { default: i18n } = await import('../../i18n')
-    expect(i18n.global.locale).toHaveProperty('value')
+    expect(i18n.mode).toBe('composition')
   })
 
   it('isValidLocale returns true for valid locales', () => {
