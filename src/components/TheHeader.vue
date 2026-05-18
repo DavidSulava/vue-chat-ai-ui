@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { useUserStore } from '../stores/user'
 import { useRouter } from 'vue-router'
 import robotImage from '../assets/robot.png'
+import { LOCALES } from '../i18n/config'
 
 const { t, locale } = useI18n()
 const userStore = useUserStore()
@@ -36,8 +37,9 @@ const logout = () => {
         v-model="currentLocale"
         class="bg-gray-700 text-white rounded-lg px-3 py-1 focus:outline-none"
       >
-        <option value="en">EN</option>
-        <option value="ru">RU</option>
+        <option v-for="loc in LOCALES" :key="loc.code" :value="loc.code">
+          {{ loc.label }}
+        </option>
       </select>
 
       <button

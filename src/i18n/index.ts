@@ -1,19 +1,15 @@
 import { createI18n } from 'vue-i18n'
-import en from './locales/en'
-import ru from './locales/ru'
+import { LOCALES, DEFAULT_LOCALE, FALLBACK_LOCALE, isValidLocale, buildMessages } from './config'
 
 const savedLocale = localStorage.getItem('locale')
-const defaultLocale =
-  savedLocale && ['en', 'ru'].includes(savedLocale) ? savedLocale : 'ru'
+const defaultLocale = isValidLocale(savedLocale || '') ? savedLocale! : DEFAULT_LOCALE
 
 const i18n = createI18n({
   legacy: false,
   locale: defaultLocale,
-  fallbackLocale: 'en',
-  messages: {
-    en,
-    ru
-  }
+  fallbackLocale: FALLBACK_LOCALE,
+  messages: buildMessages()
 })
 
 export default i18n
+export { LOCALES, isValidLocale }
