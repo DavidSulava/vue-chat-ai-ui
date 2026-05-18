@@ -3,7 +3,7 @@ import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
 import { useChatStore } from '../stores/chat'
 import ChatInput from '../components/ChatInput.vue'
-import {onMounted, ref, nextTick} from "vue";
+import { onMounted, ref, nextTick } from 'vue'
 
 const { t } = useI18n()
 const chatStore = useChatStore()
@@ -40,12 +40,16 @@ const scrollToBottom = async () => {
 
 onMounted(async () => {
   chatStore.loadChatHistory().then(scrollToBottom)
-});
+})
 </script>
 
 <template>
   <div class="flex flex-col h-screen text-white">
-    <div id="chat-container" ref="chatContainer" class="flex-1 p-4 space-y-4 bg-gray-900 overflow-y-scroll">
+    <div
+      id="chat-container"
+      ref="chatContainer"
+      class="flex-1 p-4 space-y-4 bg-gray-900 overflow-y-scroll"
+    >
       <div
         v-for="msg in chatStore.messages"
         :key="msg.id"
