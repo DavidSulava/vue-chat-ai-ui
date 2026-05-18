@@ -1,19 +1,19 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
     userId: null as string | null,
-    name: null as string | null,
+    name: null as string | null
   }),
   actions: {
     setUser(data: { userId: string; name: string }) {
-      this.userId = data.userId;
-      this.name = data.name;
+      this.userId = data.userId
+      this.name = data.name
     },
     logout() {
-      this.userId = null;
-      this.name = null;
-    },
+      this.userId = null
+      this.name = null
+    }
   },
-  persist: true, // Keep user logged in across page reloads
-});
+  persist: true // Keep user logged in across page reloads
+})

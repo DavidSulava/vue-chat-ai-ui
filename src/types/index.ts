@@ -1,41 +1,41 @@
 export interface ChatMessage {
-  message: string;
-  reply: string;
+  message: string
+  reply: string
 }
 
 export interface FormattedMessage {
-  role: 'user' | 'ai';
-  content: string;
+  role: 'user' | 'ai'
+  content: string
 }
 
 export interface UserData {
-  userId: string;
-  name: string;
+  userId: string
+  name: string
 }
 
 export interface RegisterUserRequest {
-  name: string;
-  email: string;
+  name: string
+  email: string
 }
 
 export interface RegisterUserResponse {
-  userId: string;
-  name: string;
+  userId: string
+  name: string
 }
 
 export interface GetMessagesRequest {
-  userId: string;
+  userId: string
 }
 
 export interface GetMessagesResponse {
-  messages: ChatMessage[];
+  messages: ChatMessage[]
 }
 
 export interface ChatRequest {
-  message: string;
-  userId: string;
+  message: string
+  userId: string
 }
 
 export interface ChatResponse {
-  reply: string;
+  reply: string
 }

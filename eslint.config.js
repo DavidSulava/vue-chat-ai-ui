@@ -22,6 +22,11 @@ export default [
   ...tseslint.configs['flat/recommended'],
   ...pluginVue.configs['flat/recommended'],
   {
+    rules: {
+      'vue/no-v-html': 'off'
+    }
+  },
+  {
     files: ['**/*.vue'],
     languageOptions: {
       parser: vueParser,

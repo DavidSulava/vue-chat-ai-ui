@@ -1,42 +1,41 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const emits = defineEmits(['send']);
+const emits = defineEmits(['send'])
 const props = defineProps({
-    loading: {
-        type: Boolean,
-        default: false,
-    },
-});
+  loading: {
+    type: Boolean,
+    default: false
+  }
+})
 
-const message = ref('');
+const message = ref('')
 
 const sendMessage = () => {
+  if (!message.value.trim()) return
 
-  if (!message.value.trim()) return;
-
-  emits('send', message.value);
-  message.value = '';
-};
+  emits('send', message.value)
+  message.value = ''
+}
 </script>
 
 <template>
   <div class="p-4 bg-gray-800 flex">
     <input
       v-model="message"
-      @keyup.enter="sendMessage"
       placeholder="Send a message"
       type="text"
       class="flex-1 p-2 rounded-lg bg-gray-700 text-white focus:outline-none"
+      @keyup.enter="sendMessage"
     />
     <button
-        class="ml-2 px-4 py-2 bg-blue-500 rounded-lg"
-        :class="{
-          'opacity-50 cursor-not-allowed': props.loading,
-          'cursor-pointer': !props.loading,
-        }"
-        :disabled="props.loading"
-        @click="sendMessage"
+      class="ml-2 px-4 py-2 bg-blue-500 rounded-lg"
+      :class="{
+        'opacity-50 cursor-not-allowed': props.loading,
+        'cursor-pointer': !props.loading
+      }"
+      :disabled="props.loading"
+      @click="sendMessage"
     >
       Send
     </button>
