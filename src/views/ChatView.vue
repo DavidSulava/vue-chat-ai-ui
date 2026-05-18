@@ -54,8 +54,8 @@ onMounted(() => {
     <!-- Chat messages -->
     <div id="chat-container" class="flex-1 overflow-y-auto p-4 space-y-4">
       <div
-        v-for="(msg, index) in chatStore.messages"
-        :key="index"
+        v-for="msg in chatStore.messages"
+        :key="msg.id"
         class="flex items-start"
         :class="msg.role === 'user' ? 'justify-end' : 'justify-start'"
       >
@@ -72,6 +72,11 @@ onMounted(() => {
       <div v-if="chatStore.isLoading" class="flex justify-start">
         <div class="bg-gray-700 text-white px-4 py-2 rounded-lg">
           <span class="animate-pulse">AI is thinking...</span>
+        </div>
+      </div>
+      <div v-if="chatStore.error" class="flex justify-center">
+        <div class="bg-red-900 text-white px-4 py-2 rounded-lg">
+          {{ chatStore.error }}
         </div>
       </div>
     </div>

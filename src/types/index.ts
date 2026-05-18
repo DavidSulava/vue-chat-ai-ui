@@ -4,8 +4,9 @@ export interface ChatMessage {
 }
 
 export interface FormattedMessage {
-  role: 'user' | 'ai'
-  content: string
+  id: string;
+  role: 'user' | 'ai';
+  content: string;
 }
 
 export interface UserData {

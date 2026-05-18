@@ -4,6 +4,14 @@ import { chatService } from '../services/chatService'
 import { useUserStore } from './user'
 import type { FormattedMessage } from '../types'
 
+function createMessage(role: 'user' | 'ai', content: string): FormattedMessage {
+  return {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+    role,
+    content
+  }
+}
+
 export const useChatStore = defineStore('chat', () => {
   const messages = ref<FormattedMessage[]>([])
   const isLoading = ref(false)
@@ -21,8 +29,8 @@ export const useChatStore = defineStore('chat', () => {
 
       messages.value = response.messages
         .flatMap((msg) => [
-          { role: 'user' as const, content: msg.message },
-          { role: 'ai' as const, content: msg.reply }
+          createMessage('user', msg.message),
+          createMessage('ai', msg.reply)
         ])
         .filter((msg) => msg.content)
 
@@ -36,7 +44,7 @@ export const useChatStore = defineStore('chat', () => {
   const sendMessage = async (message: string) => {
     if (!message.trim() || !userStore.userId) return
 
-    messages.value.push({ role: 'user', content: message })
+    messages.value.push(createMessage('user', message))
     isLoading.value = true
     error.value = null
 
@@ -46,14 +54,11 @@ export const useChatStore = defineStore('chat', () => {
         userId: userStore.userId
       })
 
-      messages.value.push({ role: 'ai', content: response.reply })
+      messages.value.push(createMessage('ai', response.reply))
     } catch (err) {
       console.error('Error sending message: ', err)
       error.value = 'Failed to send message'
-      messages.value.push({
-        role: 'ai',
-        content: 'Error: unable to process request'
-      })
+      messages.value.push(createMessage('ai', 'Error: unable to process request'))
     } finally {
       isLoading.value = false
     }
