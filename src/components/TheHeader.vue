@@ -35,7 +35,7 @@ const logout = () => {
     <div class="flex items-center gap-4">
       <select
         v-model="currentLocale"
-        class="bg-gray-700 text-white rounded-lg px-3 py-1 focus:outline-none"
+        class="bg-gray-700 text-white rounded-lg pl-0 pr-1 py-1 focus:outline-none"
       >
         <option v-for="loc in LOCALES" :key="loc.code" :value="loc.code">
           {{ loc.label }}
