@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const emits = defineEmits(['send'])
 const props = defineProps({
@@ -23,7 +26,7 @@ const sendMessage = () => {
   <div class="p-4 bg-gray-800 flex">
     <input
       v-model="message"
-      placeholder="Send a message"
+      :placeholder="t('chat.sendMessage')"
       type="text"
       class="flex-1 p-2 rounded-lg bg-gray-700 text-white focus:outline-none"
       @keyup.enter="sendMessage"
@@ -37,7 +40,7 @@ const sendMessage = () => {
       :disabled="props.loading"
       @click="sendMessage"
     >
-      Send
+      {{ t('chat.send') }}
     </button>
   </div>
 </template>
