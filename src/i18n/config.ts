@@ -1,14 +1,10 @@
 import en from './locales/en'
 import ru from './locales/ru'
+import type { LocaleConfig } from '../types'
 
 type LocaleMessages = typeof en
-export interface LocaleConfig {
-  code: string
-  label: string
-  messages: LocaleMessages
-}
 
-export const LOCALES: LocaleConfig[] = [
+export const LOCALES: LocaleConfig<LocaleMessages>[] = [
   {
     code: 'en',
     label: 'EN',

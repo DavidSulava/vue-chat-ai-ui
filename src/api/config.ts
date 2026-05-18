@@ -1,4 +1,5 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
+import type { ApiErrorResponse } from '../types'
 
 const baseURL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/api`
@@ -14,7 +15,7 @@ export const api: AxiosInstance = axios.create({
 
 api.interceptors.response.use(
   (response) => response,
-  (error: AxiosError<{ error?: string }>) => {
+  (error: AxiosError<ApiErrorResponse>) => {
     if (!error.response) {
       return Promise.reject(
         new Error('Network error: Unable to connect to server')

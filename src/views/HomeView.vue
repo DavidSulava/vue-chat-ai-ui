@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { userService } from '../services/userService'
 import { useUserStore } from '../stores/user'
 import { useRouter } from 'vue-router'
+import type { ApiErrorResponse } from '../types'
 import robotImage from '../assets/robot.png'
 
 const { t } = useI18n()
@@ -41,10 +42,7 @@ async function createUser() {
 
     goToChat()
   } catch (err: unknown) {
-    const axiosError = err as {
-      response?: { data?: { message?: string; error?: string } }
-      message?: string
-    }
+    const axiosError = err as { response?: { data?: ApiErrorResponse }; message?: string }
     if (axiosError.response?.data?.message) {
       error.value = axiosError.response.data.message
     } else if (axiosError.response?.data?.error) {

@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import type { SetUserPayload } from '../types'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -6,7 +7,7 @@ export const useUserStore = defineStore('user', {
     name: null as string | null
   }),
   actions: {
-    setUser(data: { userId: string; name: string }) {
+    setUser(data: SetUserPayload) {
       this.userId = data.userId
       this.name = data.name
     },
@@ -15,5 +16,5 @@ export const useUserStore = defineStore('user', {
       this.name = null
     }
   },
-  persist: true // Keep user logged in across page reloads
+  persist: true
 })
