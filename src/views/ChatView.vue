@@ -46,8 +46,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col h-screen bg-gray-900 text-white">
-    <div id="chat-container" class="flex-1 p-4 space-y-4">
+  <div class="flex flex-col h-screen  text-white">
+    <div id="chat-container" class="flex-1 p-4 space-y-4 bg-gray-900">
       <div
         v-for="msg in chatStore.messages"
         :key="msg.id"
