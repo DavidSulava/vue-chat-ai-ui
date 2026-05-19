@@ -20,7 +20,6 @@ const login = ref('')
 const password = ref('')
 const loading = ref(false)
 const error = ref('')
-
 const tabs = [
   { key: 'login' as const, labelKey: 'auth.loginTab' },
   { key: 'register' as const, labelKey: 'auth.registerTab' }
@@ -60,6 +59,11 @@ function extractErrorMessage(err: unknown): string {
     t('auth.somethingWrong')
   )
 }
+function switchTab(tab: 'login' | 'register') {
+  if (loading.value) return
+  activeTab.value = tab
+  error.value = ''
+}
 async function handleAuth() {
   const validationError = validateForm()
   if (validationError) {
@@ -72,7 +76,7 @@ async function handleAuth() {
 
   try {
     const authMethod =
-      activeTab.value === 'login' ? authStore.loginUser : authStore.registerUser
+        activeTab.value === 'login' ? authStore.loginUser : authStore.registerUser
     await authMethod({ login: login.value, password: password.value })
     goToChat()
   } catch (err: unknown) {
@@ -80,11 +84,6 @@ async function handleAuth() {
   } finally {
     loading.value = false
   }
-}
-function switchTab(tab: 'login' | 'register') {
-  if (loading.value) return
-  activeTab.value = tab
-  error.value = ''
 }
 
 onMounted(() => {
