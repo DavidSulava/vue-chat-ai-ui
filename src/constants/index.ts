@@ -1,2 +1,2 @@
-export const NAVBAR_HEIGHT = 64
-export const CHAT_INPUT_HEIGHT = 72
+export { NAVBAR_HEIGHT, CHAT_INPUT_HEIGHT } from './ui'
+export { MIN_LOGIN_LENGTH, MAX_LOGIN_LENGTH, MIN_PASSWORD_LENGTH } from './auth'
