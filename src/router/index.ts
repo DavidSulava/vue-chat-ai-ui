@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteLocationRaw } from 'vue-router'
-import { useAuthStore } from '../stores/auth.ts'
+import { useAuthStore } from '@/stores/auth'
 
-const HomeView = () => import('../views/HomeView.vue')
-const ChatView = () => import('../views/ChatView.vue')
+const HomeView = () => import('@/views/HomeView.vue')
+const ChatView = () => import('@/views/ChatView.vue')
 
 const routes = [
   { path: '/', name: 'login', component: HomeView },

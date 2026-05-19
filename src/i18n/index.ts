@@ -5,7 +5,7 @@ import {
   FALLBACK_LOCALE,
   isValidLocale,
   MESSAGES
-} from './config'
+} from '@/i18n/config'
 
 const savedLocale = localStorage.getItem('locale')
 const defaultLocale =

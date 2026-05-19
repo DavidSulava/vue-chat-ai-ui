@@ -1,6 +1,6 @@
-import en from './locales/en'
-import ru from './locales/ru'
-import type { LocaleConfig } from '../types'
+import en from '@/i18n/locales/en'
+import ru from '@/i18n/locales/ru'
+import type { LocaleConfig } from '@/types'
 
 type LocaleMessages = typeof en
 

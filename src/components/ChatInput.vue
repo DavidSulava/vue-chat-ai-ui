@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { CHAT_INPUT_HEIGHT } from '../constants'
+import { CHAT_INPUT_HEIGHT } from '@/constants'
 
 const { t } = useI18n()
 

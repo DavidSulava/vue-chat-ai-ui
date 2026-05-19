@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
-import { useChatStore } from '../stores/chat'
-import ChatInput from '../components/ChatInput.vue'
+import { useChatStore } from '@/stores/chat'
+import ChatInput from '@/components/ChatInput.vue'
 import { onMounted, ref, nextTick, watch } from 'vue'
-import { CHAT_INPUT_HEIGHT, NAVBAR_HEIGHT } from '../constants'
+import { CHAT_INPUT_HEIGHT, NAVBAR_HEIGHT } from '@/constants'
 
 const { t } = useI18n()
 const chatStore = useChatStore()

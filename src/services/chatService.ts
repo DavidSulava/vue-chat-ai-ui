@@ -1,5 +1,5 @@
-import { api } from '../api/config'
-import type { ChatRequest, ChatResponse, GetMessagesResponse } from '../types'
+import { api } from '@/api/config'
+import type { ChatRequest, ChatResponse, GetMessagesResponse } from '@/types'
 
 export const chatService = {
   async getMessages(): Promise<GetMessagesResponse> {

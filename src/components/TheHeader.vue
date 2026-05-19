@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAuthStore } from '../stores/auth'
-import robotImage from '../assets/robot.png'
-import { LOCALES } from '../i18n/config'
-import { NAVBAR_HEIGHT } from '../constants'
+import { useAuthStore } from '@/stores/auth'
+import robotImage from '@/assets/robot.png'
+import { LOCALES } from '@/i18n/config'
+import { NAVBAR_HEIGHT } from '@/constants'
 
 const { t, locale } = useI18n()
 const authStore = useAuthStore()

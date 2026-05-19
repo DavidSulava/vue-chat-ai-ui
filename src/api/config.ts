@@ -1,7 +1,7 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
-import { useAuthStore } from '../stores/auth'
-import router from '../router'
-import type { ApiErrorResponse, AuthRefreshResponse } from '../types'
+import { useAuthStore } from '@/stores/auth'
+import router from '@/router'
+import type { ApiErrorResponse, AuthRefreshResponse } from '@/types'
 
 const baseURL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/api`

@@ -1,4 +1,4 @@
-import { api } from '../api/config'
+import { api } from '@/api/config'
 import type {
   AuthLoginRequest,
   AuthLoginResponse,
@@ -7,7 +7,7 @@ import type {
   AuthRefreshRequest,
   AuthRefreshResponse,
   AuthLogoutResponse
-} from '../types'
+} from '@/types'
 
 export const authService = {
   async login(request: AuthLoginRequest): Promise<AuthLoginResponse> {

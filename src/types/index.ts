@@ -1,3 +1,3 @@
-export * from './api'
-export * from './chat'
-export * from './i18n'
+export * from '@/types/api'
+export * from '@/types/chat'
+export * from '@/types/i18n'

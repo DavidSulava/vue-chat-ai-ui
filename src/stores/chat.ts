@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import i18n from '../i18n'
-import { chatService } from '../services/chatService'
-import type { FormattedMessage } from '../types'
+import i18n from '@/i18n'
+import { chatService } from '@/services/chatService'
+import type { FormattedMessage } from '@/types'
 
 const { t } = i18n.global
 

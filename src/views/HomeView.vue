@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAuthStore } from '../stores/auth'
+import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
-import type { ApiErrorResponse } from '../types'
-import robotImage from '../assets/robot.png'
+import type { ApiErrorResponse } from '@/types'
+import robotImage from '@/assets/robot.png'
 import {
   MIN_LOGIN_LENGTH,
   MAX_LOGIN_LENGTH,
   MIN_PASSWORD_LENGTH
-} from '../constants/auth'
+} from '@/constants/auth'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
