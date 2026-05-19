@@ -20,6 +20,8 @@ export interface AuthRegisterRequest {
 export interface AuthRegisterResponse {
   userId: string
   login: string
+  accessToken: string
+  refreshToken: string
 }
 
 export interface AuthRefreshRequest {

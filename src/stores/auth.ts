@@ -34,6 +34,7 @@ export const useAuthStore = defineStore(
       password: string
     }) => {
       const response = await authService.register(request)
+      setTokens(response.accessToken, response.refreshToken)
       setUser({ userId: response.userId, login: response.login })
     }
 
