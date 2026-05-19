@@ -76,7 +76,7 @@ async function handleAuth() {
 
   try {
     const authMethod =
-        activeTab.value === 'login' ? authStore.loginUser : authStore.registerUser
+      activeTab.value === 'login' ? authStore.loginUser : authStore.registerUser
     await authMethod({ login: login.value, password: password.value })
     goToChat()
   } catch (err: unknown) {
