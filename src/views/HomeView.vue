@@ -19,7 +19,6 @@ const error = ref('')
 function goToChat() {
   router.push({ name: 'chat' })
 }
-
 async function handleAuth() {
   if (!login.value || !password.value) {
     error.value = t('auth.loginPasswordRequired')
@@ -68,7 +67,6 @@ async function handleAuth() {
     loading.value = false
   }
 }
-
 function switchTab(tab: 'login' | 'register') {
   activeTab.value = tab
   error.value = ''
@@ -97,22 +95,26 @@ onMounted(() => {
         <div class="flex mb-4 bg-gray-700 rounded-lg p-1">
           <button
             class="flex-1 py-2 rounded-md text-sm font-medium transition-colors"
-            :class="
+            :class="[
               activeTab === 'login'
                 ? 'bg-blue-500 text-white'
-                : 'text-gray-300 hover:text-white'
-            "
+                : 'text-gray-300 hover:text-white',
+              { 'cursor-pointer': !loading, 'cursor-not-allowed': loading }
+            ]"
+            :disabled="loading"
             @click="switchTab('login')"
           >
             {{ t('auth.loginTab') }}
           </button>
           <button
             class="flex-1 py-2 rounded-md text-sm font-medium transition-colors"
-            :class="
+            :class="[
               activeTab === 'register'
                 ? 'bg-blue-500 text-white'
-                : 'text-gray-300 hover:text-white'
-            "
+                : 'text-gray-300 hover:text-white',
+              { 'cursor-pointer': !loading, 'cursor-not-allowed': loading }
+            ]"
+            :disabled="loading"
             @click="switchTab('register')"
           >
             {{ t('auth.registerTab') }}
