@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import i18n from '../i18n'
 import { chatService } from '../services/chatService'
-import { useUserStore } from './user'
 import type { FormattedMessage } from '../types'
 
 const { t } = i18n.global
@@ -20,15 +19,9 @@ export const useChatStore = defineStore('chat', () => {
   const isLoading = ref(false)
   const error = ref<string | null>(null)
 
-  const userStore = useUserStore()
-
   const loadChatHistory = async () => {
-    if (!userStore.userId) return
-
     try {
-      const response = await chatService.getMessages({
-        userId: userStore.userId
-      })
+      const response = await chatService.getMessages()
 
       messages.value = response.messages
         .flatMap((msg) => [
@@ -45,7 +38,7 @@ export const useChatStore = defineStore('chat', () => {
   }
 
   const sendMessage = async (message: string) => {
-    if (!message.trim() || !userStore.userId) return
+    if (!message.trim()) return
 
     messages.value.push(createMessage('user', message))
     isLoading.value = true
@@ -53,8 +46,7 @@ export const useChatStore = defineStore('chat', () => {
 
     try {
       const response = await chatService.sendMessage({
-        message,
-        userId: userStore.userId
+        message
       })
 
       messages.value.push(createMessage('ai', response.reply))

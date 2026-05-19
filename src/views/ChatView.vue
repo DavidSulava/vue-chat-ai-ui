@@ -3,20 +3,24 @@ import { useI18n } from 'vue-i18n'
 import DOMPurify from 'dompurify'
 import { useChatStore } from '../stores/chat'
 import ChatInput from '../components/ChatInput.vue'
-import {onMounted, ref, nextTick, watch} from 'vue'
-import {CHAT_INPUT_HEIGHT, NAVBAR_HEIGHT} from '../constants';
+import { onMounted, ref, nextTick, watch } from 'vue'
+import { CHAT_INPUT_HEIGHT, NAVBAR_HEIGHT } from '../constants'
 
 const { t } = useI18n()
 const chatStore = useChatStore()
 const chatContainer = ref<HTMLElement>()
 
-watch(() => chatContainer.value, () => {
-  setChatContainerHeight()
-}, { once: true })
+watch(
+  () => chatContainer.value,
+  () => {
+    setChatContainerHeight()
+  },
+  { once: true }
+)
 
 const setChatContainerHeight = () => {
   if (chatContainer.value) {
-    chatContainer.value.style.height =  `calc(100vh - ${(NAVBAR_HEIGHT + CHAT_INPUT_HEIGHT)}px)`;
+    chatContainer.value.style.height = `calc(100vh - ${NAVBAR_HEIGHT + CHAT_INPUT_HEIGHT}px)`
   }
 }
 const formatMessage = (text: string) => {

@@ -1,17 +1,38 @@
 import type { ChatMessage } from './chat'
 
-export interface RegisterUserRequest {
-  name: string
-  email: string
+export interface AuthLoginRequest {
+  login: string
+  password: string
 }
 
-export interface RegisterUserResponse {
+export interface AuthLoginResponse {
   userId: string
-  name: string
+  login: string
+  accessToken: string
+  refreshToken: string
 }
 
-export interface GetMessagesRequest {
+export interface AuthRegisterRequest {
+  login: string
+  password: string
+}
+
+export interface AuthRegisterResponse {
   userId: string
+  login: string
+}
+
+export interface AuthRefreshRequest {
+  refreshToken: string
+}
+
+export interface AuthRefreshResponse {
+  accessToken: string
+  refreshToken: string
+}
+
+export interface AuthLogoutResponse {
+  message: string
 }
 
 export interface GetMessagesResponse {
@@ -20,7 +41,6 @@ export interface GetMessagesResponse {
 
 export interface ChatRequest {
   message: string
-  userId: string
 }
 
 export interface ChatResponse {

@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { userService } from '../services/userService'
-import { useUserStore } from '../stores/user'
+import { useAuthStore } from '../stores/auth'
 import { useRouter } from 'vue-router'
 import type { ApiErrorResponse } from '../types'
 import robotImage from '../assets/robot.png'
 
 const { t } = useI18n()
-const userStore = useUserStore()
+const authStore = useAuthStore()
 const router = useRouter()
 
-const name = ref('')
-const email = ref('')
+const activeTab = ref<'login' | 'register'>('login')
+const login = ref('')
+const password = ref('')
 const loading = ref(false)
 const error = ref('')
 
@@ -20,9 +20,17 @@ function goToChat() {
   router.push({ name: 'chat' })
 }
 
-async function createUser() {
-  if (!name.value || !email.value) {
-    error.value = t('home.nameEmailRequired')
+async function handleAuth() {
+  if (!login.value || !password.value) {
+    error.value = t('auth.loginPasswordRequired')
+    return
+  }
+  if (login.value.length < 3 || login.value.length > 30) {
+    error.value = t('auth.loginLength')
+    return
+  }
+  if (password.value.length < 6) {
+    error.value = t('auth.passwordLength')
     return
   }
 
@@ -30,16 +38,17 @@ async function createUser() {
   error.value = ''
 
   try {
-    const response = await userService.registerUser({
-      name: name.value,
-      email: email.value
-    })
-
-    userStore.setUser({
-      userId: response.userId,
-      name: response.name
-    })
-
+    if (activeTab.value === 'login') {
+      await authStore.loginUser({
+        login: login.value,
+        password: password.value
+      })
+    } else {
+      await authStore.registerUser({
+        login: login.value,
+        password: password.value
+      })
+    }
     goToChat()
   } catch (err: unknown) {
     const axiosError = err as {
@@ -53,15 +62,20 @@ async function createUser() {
     } else if (axiosError.message) {
       error.value = axiosError.message
     } else {
-      error.value = t('home.somethingWrong')
+      error.value = t('auth.somethingWrong')
     }
   } finally {
     loading.value = false
   }
 }
 
+function switchTab(tab: 'login' | 'register') {
+  activeTab.value = tab
+  error.value = ''
+}
+
 onMounted(() => {
-  if (userStore.userId) {
+  if (authStore.accessToken) {
     goToChat()
   }
 })
@@ -73,20 +87,50 @@ onMounted(() => {
       <div class="p-8 bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
         <img :src="robotImage" alt="" class="mx-auto w-24 h-24 mb-4" />
         <h1 class="text-2xl font-semibold mb-4 text-center">
-          {{ t('home.title') }}
+          {{
+            activeTab === 'login'
+              ? t('auth.loginTitle')
+              : t('auth.registerTitle')
+          }}
         </h1>
 
+        <div class="flex mb-4 bg-gray-700 rounded-lg p-1">
+          <button
+            class="flex-1 py-2 rounded-md text-sm font-medium transition-colors"
+            :class="
+              activeTab === 'login'
+                ? 'bg-blue-500 text-white'
+                : 'text-gray-300 hover:text-white'
+            "
+            @click="switchTab('login')"
+          >
+            {{ t('auth.loginTab') }}
+          </button>
+          <button
+            class="flex-1 py-2 rounded-md text-sm font-medium transition-colors"
+            :class="
+              activeTab === 'register'
+                ? 'bg-blue-500 text-white'
+                : 'text-gray-300 hover:text-white'
+            "
+            @click="switchTab('register')"
+          >
+            {{ t('auth.registerTab') }}
+          </button>
+        </div>
+
         <input
-          v-model="name"
+          v-model="login"
           type="text"
           class="w-full p-2 mb-2 bg-gray-700 text-white rounded-lg focus:outline-none"
-          :placeholder="t('home.namePlaceholder')"
+          :placeholder="t('auth.loginPlaceholder')"
         />
         <input
-          v-model="email"
-          type="email"
+          v-model="password"
+          type="password"
           class="w-full p-2 mb-2 bg-gray-700 text-white rounded-lg focus:outline-none"
-          :placeholder="t('home.emailPlaceholder')"
+          :placeholder="t('auth.passwordPlaceholder')"
+          @keyup.enter="handleAuth"
         />
 
         <button
@@ -96,14 +140,20 @@ onMounted(() => {
             'cursor-pointer': !loading
           }"
           :disabled="loading"
-          @click="createUser"
+          @click="handleAuth"
         >
-          {{ loading ? t('home.loggingIn') : t('home.startChat') }}
+          {{
+            loading
+              ? t('auth.loggingIn')
+              : activeTab === 'login'
+                ? t('auth.loginButton')
+                : t('auth.registerButton')
+          }}
         </button>
 
         <p v-if="error" class="text-red-400 text-center mt-2">{{ error }}</p>
         <p v-if="loading" class="text-green-400 text-center mt-2">
-          {{ t('home.serverWaking') }}
+          {{ t('auth.serverWaking') }}
         </p>
       </div>
     </div>

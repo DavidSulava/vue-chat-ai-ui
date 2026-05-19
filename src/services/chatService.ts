@@ -1,17 +1,9 @@
 import { api } from '../api/config'
-import type {
-  ChatRequest,
-  ChatResponse,
-  GetMessagesRequest,
-  GetMessagesResponse
-} from '../types'
+import type { ChatRequest, ChatResponse, GetMessagesResponse } from '../types'
 
 export const chatService = {
-  async getMessages(request: GetMessagesRequest): Promise<GetMessagesResponse> {
-    const { data } = await api.post<GetMessagesResponse>(
-      '/get-messages',
-      request
-    )
+  async getMessages(): Promise<GetMessagesResponse> {
+    const { data } = await api.get<GetMessagesResponse>('/messages')
     return data
   },
 

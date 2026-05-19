@@ -4,14 +4,20 @@ export default {
     error: 'Error',
     retry: 'Retry'
   },
-  home: {
-    title: 'Welcome To Chat AI',
-    namePlaceholder: 'Name',
-    emailPlaceholder: 'Email',
-    startChat: 'Start Chat',
+  auth: {
+    loginTitle: 'Login',
+    registerTitle: 'Register',
+    loginTab: 'Login',
+    registerTab: 'Register',
+    loginPlaceholder: 'Login',
+    passwordPlaceholder: 'Password',
+    loginButton: 'Login',
+    registerButton: 'Register',
     loggingIn: 'Logging in...',
     serverWaking: 'the server is waking up...',
-    nameEmailRequired: 'Name and email are required',
+    loginPasswordRequired: 'Login and password are required',
+    loginLength: 'Login must be 3-30 characters',
+    passwordLength: 'Password must be at least 6 characters',
     somethingWrong: 'Something went wrong. Please try again'
   },
   chat: {

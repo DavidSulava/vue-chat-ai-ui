@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteLocationRaw } from 'vue-router'
-import { useUserStore } from '../stores/user.ts'
+import { useAuthStore } from '../stores/auth.ts'
 
 const HomeView = () => import('../views/HomeView.vue')
 const ChatView = () => import('../views/ChatView.vue')
@@ -15,9 +15,19 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to) => {
-  const userStore = useUserStore()
-  const isAuthenticated = !!userStore.userId
+router.beforeEach(async (to) => {
+  const authStore = useAuthStore()
+
+  if (!authStore.accessToken && authStore.refreshToken) {
+    try {
+      await authStore.refreshTokens()
+    } catch {
+      authStore.clearSession()
+      return { name: 'login' } as RouteLocationRaw
+    }
+  }
+
+  const isAuthenticated = !!authStore.accessToken
 
   if (!isAuthenticated && to.name !== 'login') {
     return { name: 'login' } as RouteLocationRaw

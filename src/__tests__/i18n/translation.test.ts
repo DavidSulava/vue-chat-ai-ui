@@ -4,7 +4,7 @@ import ru from '../../i18n/locales/ru'
 import { getFlatKeys, getNestedValue } from './_test-utils'
 
 describe('Translation completeness', () => {
-  const requiredSections = ['common', 'home', 'chat', 'header'] as const
+  const requiredSections = ['common', 'auth', 'chat', 'header'] as const
 
   requiredSections.forEach((section) => {
     it(`${section} section exists in en`, () => {

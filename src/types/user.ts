@@ -1,9 +1,13 @@
 export interface UserData {
   userId: string
-  name: string
+  login: string
+  accessToken: string
+  refreshToken: string
 }
 
 export interface SetUserPayload {
   userId: string
-  name: string
+  login: string
+  accessToken: string
+  refreshToken: string
 }

@@ -4,14 +4,20 @@ export default {
     error: 'Ошибка',
     retry: 'Повторить'
   },
-  home: {
-    title: 'Добро пожаловать в Chat AI',
-    namePlaceholder: 'Имя',
-    emailPlaceholder: 'Электронная почта',
-    startChat: 'Начать чат',
+  auth: {
+    loginTitle: 'Вход',
+    registerTitle: 'Регистрация',
+    loginTab: 'Вход',
+    registerTab: 'Регистрация',
+    loginPlaceholder: 'Логин',
+    passwordPlaceholder: 'Пароль',
+    loginButton: 'Войти',
+    registerButton: 'Зарегистрироваться',
     loggingIn: 'Входим...',
     serverWaking: 'сервер просыпается...',
-    nameEmailRequired: 'Имя и электронная почта обязательны',
+    loginPasswordRequired: 'Логин и пароль обязательны',
+    loginLength: 'Логин должен быть 3-30 символов',
+    passwordLength: 'Пароль должен быть не менее 6 символов',
     somethingWrong: 'Что-то пошло не так. Попробуйте снова'
   },
   chat: {
