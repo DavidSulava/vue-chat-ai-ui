@@ -1,5 +1,6 @@
 import axios, { AxiosError, type AxiosInstance } from 'axios'
 import { useAuthStore } from '../stores/auth'
+import router from '../router'
 import type { ApiErrorResponse, AuthRefreshResponse } from '../types'
 
 const baseURL = import.meta.env.VITE_API_URL
@@ -94,7 +95,7 @@ api.interceptors.response.use(
         processQueue(refreshError, null)
         const authStore = useAuthStore()
         authStore.clearSession()
-        window.location.href = '/'
+        router.push({ name: 'login' })
         return Promise.reject(refreshError)
       } finally {
         isRefreshing = false
