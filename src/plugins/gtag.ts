@@ -7,6 +7,8 @@ export function setupGtag(app: App) {
 
   if (!measurementId || measurementId === 'G-XXXXXXXXXX') return
 
+    console.log('setupGtag', app)
+
   app.use(
     createGtag({
       tagId: measurementId,
@@ -15,7 +17,7 @@ export function setupGtag(app: App) {
         anonymize_ip: true
       },
       pageTracker: {
-        router
+        router: router,
       }
     })
   )
