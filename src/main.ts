@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import piniaPluginPersistedState from 'pinia-plugin-persistedstate'
 import router from '@/router'
 import i18n from '@/i18n'
+import { setupGtag } from '@/plugins/gtag'
 import '@/style.css'
 import App from '@/App.vue'
 
@@ -13,4 +14,5 @@ const app = createApp(App)
 app.use(router)
 app.use(pinia)
 app.use(i18n)
+app.use(setupGtag)
 app.mount('#app')
